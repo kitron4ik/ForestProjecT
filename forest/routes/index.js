@@ -7,12 +7,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/Berezka', function(req, res, next) {
-  res.send("<h1>Березка</h1>")
-  });
+  res.render('tree', {
+  title: "Березка",
+  picture: "images/Berezka.png",
+  desc: "Белое дерево в черное пятнышко с вкусным березовым соком"
+})
+});
+
 router.get('/El', function(req, res, next) {
-    res.send("<h1>Елка</h1>")
+  res.render('tree', {
+    title: "El",
+    picture: "images/Elochka.png",
+    desc: "Дерево с приятным запахом, вечный гость в новогоднюю ночь!"
+  })
 });
 router.get('/Dub', function(req, res, next) {
-    res.send("<h1>Дуб</h1>")
+  res.render('tree', {
+    title: "Dub",
+    picture: "images/Dubina.png",
+    desc: "Древнерусское древо, оно могло застать людей в начале нашей эры, так как может жить до 2000 лет !"
+  })
 });
+
 module.exports = router;
