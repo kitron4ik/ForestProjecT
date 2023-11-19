@@ -9,9 +9,9 @@ await client.connect();
 var database = client.db("forest");
 database.dropDatabase()
 database = client.db("forest");
-const cats = database.collection("trees");
-const result = await cats.insertOne({name:"Дуб"});
-console.log(`${result} documents were inserted`);
+const trees = database.collection("trees");
+const result = await trees.insertMany(data);
+console.log(`${result.insertedCount} documents were inserted`);
 } finally {
 await client.close();
 }
