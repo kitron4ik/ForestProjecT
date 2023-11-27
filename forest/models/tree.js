@@ -14,4 +14,6 @@ var treeSchema = new Schema({
         default:Date.now
     }
 })
-module.exports.Tree = mongoose.model("tree", treeSchema)
+module.exports.Tree = mongoose.model('Tree', treeSchema)
+
+

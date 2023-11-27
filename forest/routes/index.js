@@ -14,14 +14,14 @@ router.get('/Berezka', function(req, res, next) {
 })
 });
 
-router.get('/El', function(req, res, next) {
+router.get('/Elochka', function(req, res, next) {
   res.render('tree', {
     title: "El",
     picture: "images/Elochka.png",
     desc: "Дерево с приятным запахом, вечный гость в новогоднюю ночь!"
   })
 });
-router.get('/Dub', function(req, res, next) {
+router.get('/Dubina', function(req, res, next) {
   res.render('tree', {
     title: "Dub",
     picture: "images/Dubina.png",
