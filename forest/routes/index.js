@@ -6,6 +6,10 @@ const Tree = require("../models/tree").Tree;
 router.get('/', async (req, res, next) => {
   try {
     const menu = await Tree.find({}, { _id: 0, title: 1, nick: 1 });
+    res.cookie('greeting', 'Hi!!!').render('index', { 
+      title:'Express', 
+      menu:menu 
+    });
     res.render('index', {
       title: 'Express',
       menu: menu
@@ -14,5 +18,6 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
 
 module.exports = router;
