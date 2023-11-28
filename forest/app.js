@@ -25,9 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var MongoStore = new(require('connect-mongo')(session));
+//var MongoStore = require('connect-mongo')(session);
 app.use(session({
-  secret: "ThreeCats",
+  secret: "Forest",
   cookie:{maxAge:60*1000},
   resave: true,
   saveUninitialized: true,
