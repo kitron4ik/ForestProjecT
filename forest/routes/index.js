@@ -45,6 +45,9 @@ router.get('/logreg', function(req, res, next) {
   })
 });
     
-
+router.get('/logreg', function(req, res, next) {
+  res.render('logreg',{error:null});
+  });
+  
   
 module.exports = router;
