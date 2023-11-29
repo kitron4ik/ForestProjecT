@@ -10,4 +10,4 @@ first_user.save().then((user) => {
     console.log(user);
   }).catch((err) => {
     throw err;
-  });
+});
