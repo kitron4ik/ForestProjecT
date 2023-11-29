@@ -54,5 +54,6 @@ router.post('/logout', function(req, res, next) {
     res.locals.user = null
     res.redirect('/')
 });
+//
   
 module.exports = router;
