@@ -11,11 +11,13 @@
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
           <div class="container-fluid">
             <ul class="navbar-nav">
-              <% menu.forEach(tree => { %>
+              <% if(typeof nav == 'object' && nav){ nav.forEach(function(tree){
+                %>
                 <li class="nav-item">
-                  <a class="nav-link" href="/trees/<%= tree.nick %>"><%= tree.title %></a>
+                <a class="nav-link"
+                href="/trees/<%=tree.nick%>"><%=tree.title%></a>
                 </li>
-              <% }) %>
+                <% })} %>
             </ul>
           </div>
         </nav>
