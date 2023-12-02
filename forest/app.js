@@ -9,6 +9,7 @@ var session = require("express-session")
 var Tree = require("./models/tree").Tree
 mongoose.connect('mongodb://127.0.0.1/forest');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var treesRouter = require('./routes/trees');
@@ -41,9 +42,8 @@ app.use(session({
 })
    
 
-
-app.use(require("./middleware/createMenu.js"));
 app.use(require("./middleware/createUser.js"))
+app.use(require("./middleware/createMenu.js"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/trees', treesRouter);
@@ -63,7 +63,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {title:"Упс... дерево потерялось"});
 });
 
 module.exports = app;
