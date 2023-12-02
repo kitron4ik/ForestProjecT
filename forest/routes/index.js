@@ -9,7 +9,7 @@ var db = require('../mySQLConnect.js');
 router.get('/', async (req, res, next) => {
   try {
     req.session.greeting = "Hi!!!"
-    res.render('index', { title: 'Express', counter:req.session.counter });
+    res.render('index', { title: 'Express', counter:req.session.counter, error:null });
   } catch (err) {
     next(err);
   }
@@ -24,18 +24,17 @@ router.post('/logreg', function(req, res, next) {
   var password = req.body.password
   db.query (`SELECT * FROM user WHERE user.username = '${req.body.username}'`,
   function(err,users){
-  if(err) return next(err)
-  if(users.length > 0) {
-  var user = users[0];
-  if (password == user.password){
-  req.session.user = user.id
-  res.redirect('/')
+    if(err) return next(err)
+      if(users.length > 0) {
+      var user = users[0];
+        if (password == user.password){
+        req.session.user = user.id
+        res.redirect('/')
+        } else {
+          res.render('logreg', {title: 'Вход', error:'Пароль не верный, попробуйте снова ;)'})
+        }
   } else {
-  res.render('logreg', {title: 'Вход'})
-  }
-  } else {
-  db.query(`INSERT INTO user (username, password) VALUES ('${username}',
-  '${password}')`, function(err, user){
+  db.query(`INSERT INTO user (username, password) VALUES ('${username}', '${password}')`, function(err, user){
   if(err) return next(err)
   req.session.user = user.id
   res.redirect('/')
