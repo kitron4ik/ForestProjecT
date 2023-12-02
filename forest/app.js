@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var session = require("express-session")
 var Tree = require("./models/tree").Tree
-mongoose.connect('mongodb://127.0.0.1/forest');
+//mongoose.connect('mongodb://127.0.0.1/forest');
+var mysql2 = require('mysql2/promise');
+var MySQLStore = require('express-mysql-session')(session);
 
 
 var indexRouter = require('./routes/index');
@@ -16,10 +18,33 @@ var treesRouter = require('./routes/trees');
 
 var app = express();
 
+var options = {
+  host : '127.0.0.1',
+  port: '3306',
+  user : 'root',
+  password : '1234',
+  database: 'forest'
+  };
+var connection = mysql2.createPool(options)
+var sessionStore = new MySQLStore( options, connection);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('ejs',require('ejs-locals'));
+
+app.use(session({
+    secret: 'Forest',
+    key: 'sid',
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: true,
+    cookie: { path: '/',
+      httpOnly: true,
+      maxAge: 60*1000
+    }
+}));
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,14 +53,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var MongoStore = require('connect-mongo');
-app.use(session({
-  secret: "Forest",
-  cookie:{maxAge:60*1000},
-  resave: true,
-  saveUninitialized: true,
-  store: MongoStore.create({mongoUrl: 'mongodb://localhost/forest'})
-  }))
+// var MongoStore = require('connect-mongo');
+// app.use(session({
+//   secret: "Forest",
+//   cookie:{maxAge:60*1000},
+//   resave: true,
+//   saveUninitialized: true,
+//   store: MongoStore.create({mongoUrl: 'mongodb://localhost/forest'})
+//   }))
+
+
   app.use(function(req,res,next){
     req.session.counter = req.session.counter +1 || 1
     next()
