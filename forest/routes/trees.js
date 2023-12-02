@@ -3,9 +3,9 @@ const router = express.Router();
 //const Tree = require("../models/tree").Tree;
 const async = require("async")
 var db = require('../mySQLConnect.js');
-//var checkAuth = require("./../middleware/checkAuth.js")
+var checkAuth = require("./../middleware/checkAuth.js")
 
-router.get("/:nick", function(req, res, next) {
+router.get("/:nick",checkAuth, function(req, res, next) {
   db.query(`SELECT * FROM trees WHERE trees.nick = '${req.params.nick}'`, (err,trees) => {
   if(err) {
     console.log(err);
