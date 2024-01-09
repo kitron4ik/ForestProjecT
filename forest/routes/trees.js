@@ -17,7 +17,7 @@ router.get("/:nick", function(req, res, next) {
 router.get('/:nick', function(req, res, next) {
   Tree.findOne({nick:req.params.nick}, function(err, tree){
   if(err) return next(err)
-  if(!tree) return next(new Error("Нет такого котенка в этом мультике"))
+  if(!tree) return next(new Error("Нет такого дерева в этом мире"))
   res.render('tree', {
   title: tree.title,
   picture: tree.avatar,
